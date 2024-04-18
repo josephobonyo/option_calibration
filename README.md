@@ -77,4 +77,13 @@ $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{ali
 
 ### CIR Results
 
-## 6. Calibrate
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+   </tr>   
+</table>
+
+## 6. Calibrate American Option Using Monte Carlo
