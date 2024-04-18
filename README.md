@@ -27,14 +27,14 @@ date, interest rate to that expiration date, call and put price. Minimize E over
 all values of y.
 
 We used Newton's method to find:  
-$$\begin{aligned} frac{\partial E_{2}}{\partial y} = 0 \end{aligned}$$
+$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = 0 \end{aligned}$$
 
 The partial derivative is:  
-$$\begin{aligned} frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
+$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
 
 ## 2. Calibrate the Bates model
 
-$$\begin{aligned} frac{dS}{S} = r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
+$$\begin{aligned} \frac{dS}{S} = r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
 
 $$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha v dW_{2} \end{aligned}$$
 
