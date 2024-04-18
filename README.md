@@ -73,6 +73,8 @@ Just like with Bates, we will calculate the least squares error for Heston ($E_{
 
 ## 5. Calibrate the CIR Interest Rate Model
 
+$$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{aligned}$$
+
 ### CIR Results
 
 ## 6. Calibrate
