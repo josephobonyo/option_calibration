@@ -47,4 +47,4 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
 We calculate the least squares error of calibration:  
-E_{Bates} = \sqrt {\sum_{i=1}^{N} ((C_{i}^{*} - C_{i})^{2}+(P_{i}^{*} - P_{i})^{2})}
+$\ E_{Bates} = \sqrt {\sum_{i=1}^{N} ((C_{i}^{*} - C_{i})^{2}+(P_{i}^{*} - P_{i})^{2})} $
