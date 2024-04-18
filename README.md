@@ -52,4 +52,6 @@ We calculate the least squares error of calibration:
 
 $$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
 
+### Results
+<img src="" width="500" height="auto">  
 ## 3. Calibrate the Heston Model
