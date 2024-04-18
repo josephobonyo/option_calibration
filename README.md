@@ -8,8 +8,8 @@ a Monte Carlo approach.
 
 ## Models Being Calibrated
 * Bates (Jumps + Stochastic Volatility)
+* Heston Stochastic Volatility
 * Merton Jump Diffusion
-* Hestons Stochastic Volatility
 
 ## Market Data
 We are working with S&P Index options for the following maturities: 6/21/2024,
@@ -28,9 +28,7 @@ all values of y.
 
 We used Newton's method to find:  
 
-$$\begin{aligned} 
-\frac{\partial E_{2}}{\partial y} = 0 
-\end{aligned}$$
+$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = 0 \end{aligned}$$
 
 The partial derivative is: 
 
@@ -50,6 +48,8 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
-We calculate the least squares error of calibration:  
+We calculate the least squares error of calibration:
 
-$\ E_{Bates} = \sqrt {\sum_{i=1}^{N} ((C_{i}^{*} - C_{i})^{2}+(P_{i}^{*} - P_{i})^{2})} $
+$$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
+
+## 3. Calibrate the Heston Model
