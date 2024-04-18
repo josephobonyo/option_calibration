@@ -27,14 +27,14 @@ date, interest rate to that expiration date, call and put price. Minimize E over
 all values of y.
 
 We used Newton's method to find:  
+
 $$\begin{aligned} 
 \frac{\partial E_{2}}{\partial y} = 0 
 \end{aligned}$$
 
-The partial derivative is:  
-$$\begin{aligned} 
-\frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} 
-\end{aligned}$$
+The partial derivative is: 
+
+$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
 
 ## 2. Calibrate the Bates model
 
@@ -51,4 +51,5 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
 We calculate the least squares error of calibration:  
+
 $\ E_{Bates} = \sqrt {\sum_{i=1}^{N} ((C_{i}^{*} - C_{i})^{2}+(P_{i}^{*} - P_{i})^{2})} $
