@@ -30,11 +30,11 @@ all values of y.
 
 We used Newton's method to find:  
 
-$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = 0 \end{aligned}$$
+$$\begin{aligned} \frac{\partial E^{2}}{\partial y} = 0 \end{aligned}$$
 
 The partial derivative is: 
 
-$$\begin{aligned} \frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
+$$\begin{aligned} \frac{\partial E^{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
 
 ## 2. Calibrate the Bates model
 
@@ -69,10 +69,29 @@ Just like with Bates, we will calculate the least squares error for Heston ($E_{
 
 ## 4. Calibrate the Merton Model
 
+$$\begin{aligned} \sum_{n=0}^{\infty} \frac{e^{-\tilde{\lambda} T}(\tilde{\lambda} T)^{n}}{n!} (S_{0} e^{-yT}N(d_{1,n}) - Ke^{-r_{n}T}N(d_{2,n})) \end{aligned}$$
+
+$$\begin{aligned} d_{1,n} = \frac{ln(\frac{S_{0}}{K}) + (r_{n} - y + \frac{1}{2} \sigma_{n}^{2})T}{\sigma_{n} \sqrt{T}} \end{aligned}$$
+
+$$\begin{aligned} d_{2,n} = d_{1,n} - \sigma_{n} \sqrt{T} \end{aligned}$$
+
 ### Merton Results
+
+
 
 ## 5. Calibrate the CIR Interest Rate Model
 
+$$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{aligned}$$
+
 ### CIR Results
 
-## 6. Calibrate
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+   </tr>   
+</table>
+
+## 6. Calibrate American Option Using Monte Carlo
