@@ -10,6 +10,8 @@ a Monte Carlo approach.
 * Bates (Jumps + Stochastic Volatility)
 * Heston Stochastic Volatility
 * Merton Jump Diffusion
+* CIR Interest Rate Model
+* American Option using Monte Carlo
 
 ## Market Data
 We are working with S&P Index options for the following maturities: 6/21/2024,
@@ -36,9 +38,9 @@ $$\begin{aligned} \frac{\partial E_{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-y
 
 ## 2. Calibrate the Bates model
 
-$$\begin{aligned} \frac{dS}{S} = r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
+$$\begin{aligned} \frac{dS}{S} = (r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1)) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
 
-$$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha v dW_{2} \end{aligned}$$
+$$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha \sqrt {v} dW_{2} \end{aligned}$$
 
 $$\begin{aligned} Y \sim \mathcal{N}(\theta, \beta^2) \end{aligned}$$
 
@@ -56,3 +58,21 @@ $$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_
 <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m.png" width="500" height="auto">  
 
 ## 3. Calibrate the Heston Model
+
+$$\begin{aligned} \frac{dS}{S} = (r - y) dt + \sqrt {v} dW_{1} \end{aligned}$$
+
+$$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha \sqrt {v} dW_{2} \end{aligned}$$
+
+Just like with Bates, we will calculate the least squares error for Heston ($E_{Heston}$).
+
+### Heston Results
+
+## 4. Calibrate the Merton Model
+
+### Merton Results
+
+## 5. Calibrate the CIR Interest Rate Model
+
+### CIR Results
+
+## 6. Calibrate
