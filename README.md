@@ -94,4 +94,5 @@ $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{ali
    </tr>   
 </table>
 
-## 6. Calibrate American Option Using Monte Carlo
+## 6. Compute Value of American Option Using Monte Carlo
+We put everything together for a 3-factor model
