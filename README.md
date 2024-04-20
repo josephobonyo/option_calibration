@@ -16,8 +16,8 @@ a Monte Carlo approach.
 ## Market Data
 We are working with S&P Index options for the following maturities: 6/21/2024,
 9/20/2024, 12/20/2024, 3/21/2025 and 6/20/2025. There are 5 options for each
-maturity. Prices are as of 04/12/2024. We will use the closing price for that day - 
-$5,123.41 - as our index price in the models.
+maturity. Prices are as of 04/12/2024. We will use the closing price for that day 
+($5,123.41) as our index price in the models.
 
 ## 1. Calibrate an overal dividend yield
 
@@ -96,3 +96,19 @@ $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{ali
 
 ## 6. Compute Value of American Option Using Monte Carlo
 We put everything together for a 3-factor model
+
+$$\begin{aligned} \frac{dS}{S} = (r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1)) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
+
+$$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha \sqrt {v} dW_{2} \end{aligned}$$
+
+$$\begin{aligned} Y \sim \mathcal{N}(\theta, \beta^2) \end{aligned}$$
+
+$$\begin{aligned} Q(dN = 1) = \lambda dt \end{aligned}$$
+
+$$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
+
+$$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
+
+$$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{aligned}$$
+
+$$\begin{aligned} dW_{r} \cdot dW_{1} = dW_{r} \cdot dW_{2} = 0 \end{aligned}$$
