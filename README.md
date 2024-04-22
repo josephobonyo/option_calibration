@@ -36,7 +36,15 @@ The partial derivative is:
 
 $$\begin{aligned} \frac{\partial E^{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
 
-## 2. Calibrate the Bates model
+## 2. Criteria for Calibration of Options Models
+
+We calculate the least squares error of calibration for each model:
+
+$$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
+
+The stars mean “theoretical” value, obtained with the calibrated parameters.
+
+## 3. Calibrate the Bates model
 
 $$\begin{aligned} \frac{dS}{S} = (r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1)) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
 
@@ -50,14 +58,12 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
-We calculate the least squares error of calibration:
 
-$$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
 
 ### Bates Results
 <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m.png" width="500" height="auto">  
 
-## 3. Calibrate the Heston Model
+## 4. Calibrate the Heston Model
 
 $$\begin{aligned} \frac{dS}{S} = (r - y) dt + \sqrt {v} dW_{1} \end{aligned}$$
 
@@ -67,7 +73,7 @@ Just like with Bates, we will calculate the least squares error for Heston ($E_{
 
 ### Heston Results
 
-## 4. Calibrate the Merton Model
+## 5. Calibrate the Merton Model
 
 $$\begin{aligned} \sum_{n=0}^{\infty} \frac{e^{-\tilde{\lambda} T}(\tilde{\lambda} T)^{n}}{n!} (S_{0} e^{-yT}N(d_{1,n}) - Ke^{-r_{n}T}N(d_{2,n})) \end{aligned}$$
 
@@ -79,7 +85,7 @@ $$\begin{aligned} d_{2,n} = d_{1,n} - \sigma_{n} \sqrt{T} \end{aligned}$$
 
 
 
-## 5. Calibrate the CIR Interest Rate Model
+## 6. Calibrate the CIR Interest Rate Model
 
 $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{aligned}$$
 
@@ -94,7 +100,7 @@ $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{ali
    </tr>   
 </table>
 
-## 6. Compute Value of American Option Using Monte Carlo
+## 7. Compute Value of American Option Using Monte Carlo
 We put everything together for a 3-factor model
 
 $$\begin{aligned} \frac{dS}{S} = (r - y - \lambda (e^{\theta+\frac {1}{2} \beta^{2}} -1)) dt + \sqrt {v} dW_{1} + (e^{Y} - 1) dN \end{aligned}$$
