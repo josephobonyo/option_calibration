@@ -36,13 +36,22 @@ The partial derivative is:
 
 $$\begin{aligned} \frac{\partial E^{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-yT_{i}} - K_{i}D(T_{i}) - C_{i} + P_{i}) \cdot S T_{i} e^{-yT_{i}} \end{aligned}$$
 
-## 2. Criteria for Calibration of Options Models
+## 2. Error Calculation for Calibration of Options Models
 
 We calculate the least squares error of calibration for each model:
 
 $$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
 
 The stars mean “theoretical” value, obtained with the calibrated parameters.
+
+### Errors for each model
+
+| Model                      | Error         |
+| -------------------------- | ------------- |
+| Bates                      | Content Cell  |
+| Bates (with constant jump  | Content Cell  |
+| Heston                     | Content Cell  |
+| Merton                     | Content Cell  |
 
 ## 3. Calibrate the Bates model
 
@@ -61,7 +70,38 @@ $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
 
 ### Bates Results
-<img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m.png" width="500" height="auto">  
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_6m.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_6m_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_9m.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_9m_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12m.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12m_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_15.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_15_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+</table>
 
 ## 4. Calibrate the Heston Model
 
@@ -73,6 +113,39 @@ Just like with Bates, we will calculate the least squares error for Heston ($E_{
 
 ### Heston Results
 
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+</table>
+
 ## 5. Calibrate the Merton Model
 
 $$\begin{aligned} \sum_{n=0}^{\infty} \frac{e^{-\tilde{\lambda} T}(\tilde{\lambda} T)^{n}}{n!} (S_{0} e^{-yT}N(d_{1,n}) - Ke^{-r_{n}T}N(d_{2,n})) \end{aligned}$$
@@ -83,7 +156,38 @@ $$\begin{aligned} d_{2,n} = d_{1,n} - \sigma_{n} \sqrt{T} \end{aligned}$$
 
 ### Merton Results
 
-
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+</table>
 
 ## 6. Calibrate the CIR Interest Rate Model
 
@@ -118,3 +222,12 @@ $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 $$\begin{aligned} dr = \kappa_{r}(\theta_{r} - r)dt + \alpha_{r}rdW_{r} \end{aligned}$$
 
 $$\begin{aligned} dW_{r} \cdot dW_{1} = dW_{r} \cdot dW_{2} = 0 \end{aligned}$$
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+</table>
