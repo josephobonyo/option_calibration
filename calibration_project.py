@@ -13,8 +13,8 @@ from MCExamples import (generate_cholesky, random_number_generator,
                 SRD_generate_paths, B96_generate_paths, BCC97_lsm_valuation)   # Functions for Monte Carlo Simulation
 import os 
 
-file_path = r"D:\Documents\Python Scripts\FINN6212\spxoptions20240412.xlsx"
-save_folder = r"D:\Documents\Python Scripts\calibration_project\graphs"
+file_path = r""   # Enter file path to excel file
+save_folder = r""   # Enter path to desired save location for graphs
 
 
 S0 = 5123.41
