@@ -283,4 +283,4 @@ S = B96_generate_paths(S0, r, y, v, lamb, mu, delta, rand, 1, 3,
                        cho_matrix, T, M, I, moment_matching)
 
 LSM_value = BCC97_lsm_valuation(type, S, r, v, K, T, M, I)
-print("LSM value =    ", "%10.5f" % LSM_value )
+#print("LSM value =    ", "%10.5f" % LSM_value )
