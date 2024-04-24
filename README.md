@@ -1,6 +1,7 @@
 # SPX Index Option Pricing Model Calibration
 
-* Working...
+* Under construction...
+
 The goal of this project is to calibrate options pricing models to a
 recent set of market data, including dividend rates, jumps, stochastic
 volatility and interest rates, and use the result to price American options with
