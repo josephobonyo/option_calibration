@@ -68,7 +68,14 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
+### Calibrated Parameters
 
+| Parameter                  | Value         |
+| -------------------------- | ------------- |
+| Bates                      | Content Cell  |
+| Bates (with constant jump  | Content Cell  |
+| Heston                     | Content Cell  |
+| Merton                     | Content Cell  |
 
 ### Bates Results
 <table>
