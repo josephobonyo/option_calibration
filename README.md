@@ -49,10 +49,10 @@ The stars mean “theoretical” value, obtained with the calibrated parameters.
 
 | Model                      | Error         |
 | -------------------------- | ------------- |
-| Bates                      | Content Cell  |
+| Bates                      | 26.669  |
 | Bates (with constant jump  | Content Cell  |
-| Heston                     | Content Cell  |
-| Merton                     | Content Cell  |
+| Heston                     | 42.802  |
+| Merton                     | 28.822  |
 
 ## 3. Calibrate the Bates model
 
