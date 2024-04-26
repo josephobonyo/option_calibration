@@ -1,6 +1,7 @@
 # SPX Index Option Pricing Model Calibration
 
-* Working...
+* Under construction...
+
 The goal of this project is to calibrate options pricing models to a
 recent set of market data, including dividend rates, jumps, stochastic
 volatility and interest rates, and use the result to price American options with
@@ -48,10 +49,10 @@ The stars mean “theoretical” value, obtained with the calibrated parameters.
 
 | Model                      | Error         |
 | -------------------------- | ------------- |
-| Bates                      | Content Cell  |
+| Bates                      | 26.669  |
 | Bates (with constant jump  | Content Cell  |
-| Heston                     | Content Cell  |
-| Merton                     | Content Cell  |
+| Heston                     | 42.802  |
+| Merton                     | 28.822  |
 
 ## 3. Calibrate the Bates model
 
@@ -67,7 +68,14 @@ $$\begin{aligned} Q(dN = 0) = 1 - \lambda dt \end{aligned}$$
 
 $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
+### Calibrated Parameters
 
+| Parameter                  | Value         |
+| -------------------------- | ------------- |
+| Bates                      | Content Cell  |
+| Bates (with constant jump  | Content Cell  |
+| Heston                     | Content Cell  |
+| Merton                     | Content Cell  |
 
 ### Bates Results
 <table>
