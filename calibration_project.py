@@ -11,10 +11,11 @@ from CIR_zcb_valuation_gen import B
 from M76_analytic import M76_option_analytic
 from MCExamples import (generate_cholesky, random_number_generator, 
                 SRD_generate_paths, B96_generate_paths, BCC97_lsm_valuation)   # Functions for Monte Carlo Simulation
-import os 
+import os
+import multiprocessing
 
-file_path = r""   # Enter file path to excel file
-save_folder = r""   # Enter path to desired save location for graphs
+file_path = r"D:\Documents\Python Scripts\FINN6212\spxoptions20240412.xlsx"
+save_folder = r"D:\Documents\Python Scripts\FINN6212\project_graphs"
 
 
 S0 = 5123.41
@@ -28,6 +29,9 @@ D_i = np.exp(-rates * exptimes)
 v1 = np.array(df['call_iv'])
 labels = list(df["label"])   # Label for time to expiration (3m, 6m, etc...)
 
+# Initialize values for parallel processing for Bates model
+min_RMSE = multiprocessing.Value('d', 100.0)
+i = multiprocessing.Value('i', 0)
 
 def opt_y(f, Df, x0, epsilon, max_iter):
     xn = x0
@@ -88,7 +92,7 @@ def BCC_error_function(p0, strikes, exptimes, calls, puts, rates, y):
         return 500.0
     L = len(strikes)
     se = []
-    #S = S0*np.exp(-y*T)
+    
     for j in range(L):
         T = exptimes[j]
         S = S0*np.exp(-y*T)
@@ -97,12 +101,18 @@ def BCC_error_function(p0, strikes, exptimes, calls, puts, rates, y):
         call_model_value = BCC_call_value(S, K, T, r, kappa_v, theta_v, sigma_v, rho, v0, lamb, mu, delta)
         put_model_value = call_model_value - S + K * np.exp(-r * T)
         se.append((call_model_value - calls[j])**2 + (put_model_value - puts[j])**2)
+    
     RMSE = np.sqrt(sum(se))
-    #RMSE = np.sqrt(sum(se) / len(se))
-    min_RMSE = min(min_RMSE, RMSE)
+    
+    """ min_RMSE = min(min_RMSE, RMSE)
     if i % 50 == 0:
         print('%4d |' % i, np.array(p0), '| %7.3f | %7.3f' % (RMSE, min_RMSE))
-    i += 1
+    i += 1 """
+    
+    if RMSE < min_RMSE.value:
+        with min_RMSE.get_lock():
+            min_RMSE.value = min(min_RMSE.value, RMSE)
+            print(np.array(p0), '| %7.3f | %7.3f' % (RMSE, min_RMSE.value))
     return RMSE
 
 
@@ -130,8 +140,8 @@ def generate_plot_BCC(opt,strikes,calls,puts,T,r,y,label):
     plt3 = plt.plot(strikes, put_model_values, label='put model')
     plt4 = plt.plot(strikes, puts, label='put market')
     plt.title('Bates: Market Prices Versus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('European call value')
+    plt.xlabel('Strike')
+    plt.ylabel('European Option Value')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -142,8 +152,8 @@ def generate_plot_BCC(opt,strikes,calls,puts,T,r,y,label):
     plt1 = plt.plot(strikes, call_diffs, label='call differences')
     plt2 = plt.plot(strikes, put_diffs, label='put differences')
     plt.title('Bates: Market Prices Minus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('calibration error')
+    plt.xlabel('Strike')
+    plt.ylabel('Calibration Error')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -201,11 +211,16 @@ def BCCJ_error_function(p0, strikes, exptimes, calls, puts, rates, y, const_jump
         put_model_value = call_model_value - S + K * np.exp(-r * T)
         se.append((call_model_value - calls[j])**2 + (put_model_value - puts[j])**2)
     RMSE = np.sqrt(sum(se))
-    #RMSE = np.sqrt(sum(se) / len(se))
-    min_RMSE = min(min_RMSE, RMSE)
+
+    """ min_RMSE = min(min_RMSE, RMSE)
     if i % 50 == 0:
         print('%4d |' % i, np.array(p0), '| %7.3f | %7.3f' % (RMSE, min_RMSE))
-    i += 1
+    i += 1 """
+
+    if RMSE < min_RMSE.value:
+        with min_RMSE.get_lock():
+            min_RMSE.value = min(min_RMSE.value, RMSE)
+            print(np.array(p0), '| %7.3f | %7.3f' % (RMSE, min_RMSE.value))
     return RMSE
 
 
@@ -233,8 +248,8 @@ def generate_plot_BCCJ(opt,strikes,calls,puts,T,r,y,const_jump,label):
     plt3 = plt.plot(strikes, put_model_values, label='put model')
     plt4 = plt.plot(strikes, puts, label='put market')
     plt.title('Bates (with a constant jump in v of 0.02): Market Prices Versus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('European call value')
+    plt.xlabel('Strike')
+    plt.ylabel('European Option Value')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -245,8 +260,8 @@ def generate_plot_BCCJ(opt,strikes,calls,puts,T,r,y,const_jump,label):
     plt1 = plt.plot(strikes, call_diffs, label='call differences')
     plt2 = plt.plot(strikes, put_diffs, label='put differences')
     plt.title('Bates (with a constant jump in v of 0.02): Market Prices Minus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('calibration error')
+    plt.xlabel('Strike')
+    plt.ylabel('Calibration Error')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -302,7 +317,6 @@ def M76_error_function_analytic(p0,strikes,T,calls, puts, r,y):
         put_model_value = M76_option_analytic(1,S0, K, T, r, y, sigma, lamb, mu, delta, 15)
         se.append((call_model_value - calls[j])**2 + (put_model_value - puts[j])**2)
     RMSE = np.sqrt(sum(se))
-    #RMSE = np.sqrt(sum(se) / len(se))
     min_RMSE = min(min_RMSE, RMSE)
     if i % 50 == 0:
         print('%4d |' % i, np.array(p0), '| %7.3f | %7.3f' % (RMSE, min_RMSE))
@@ -332,8 +346,8 @@ def generate_plot_M76(opt,strikes,calls,puts,T,r,y,label):
     plt3 = plt.plot(strikes, put_model_values, label='put model')
     plt4 = plt.plot(strikes, puts, label='put market')
     plt.title('Merton: Market Prices Versus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('European call value')
+    plt.xlabel('Strike')
+    plt.ylabel('European Option Value')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -344,8 +358,8 @@ def generate_plot_M76(opt,strikes,calls,puts,T,r,y,label):
     plt1 = plt.plot(strikes, call_diffs, label='call differences')
     plt2 = plt.plot(strikes, put_diffs, label='put differences')
     plt.title('Merton: Market Prices Minus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('calibration error')
+    plt.xlabel('Strike')
+    plt.ylabel('Calibration Error')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -387,7 +401,7 @@ def H93_error_function(p0,strikes,exptimes,calls, puts, rates,y):
         return 500.0
     L = len(strikes)
     se = []
-    #S = S0*np.exp(-y*T)
+    
     for j in range(L):
         T = exptimes[j]
         S = S0*np.exp(-y*T)
@@ -396,7 +410,6 @@ def H93_error_function(p0,strikes,exptimes,calls, puts, rates,y):
         call_model_value = H93_call_value(S, K, T, r, kappa_v, theta_v, sigma_v, rho, v0)
         put_model_value = call_model_value - S + K * np.exp(-r * T)
         se.append((call_model_value - calls[j])**2 + (put_model_value - puts[j])** 2)
-    #MSE = np.sqrt(sum(se) / len(se))
     MSE = np.sqrt(sum(se))
     min_MSE = min(min_MSE, MSE)
     if i % 25 == 0:
@@ -428,8 +441,8 @@ def generate_plot_H93(opt,strikes,calls,puts,T,r,y,label):
     plt3 = plt.plot(strikes, put_model_values, label='put model')
     plt4 = plt.plot(strikes, puts, label='put market')
     plt.title('Heston: Market Prices Versus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('European call value')
+    plt.xlabel('Strike')
+    plt.ylabel('European Option Value')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -440,8 +453,8 @@ def generate_plot_H93(opt,strikes,calls,puts,T,r,y,label):
     plt1 = plt.plot(strikes, call_diffs, label='call differences')
     plt2 = plt.plot(strikes, put_diffs, label='put differences')
     plt.title('Heston: Market Prices Minus Calibrated Prices ' + label)
-    plt.xlabel('strike')
-    plt.ylabel('calibration error')
+    plt.xlabel('Strike')
+    plt.ylabel('Calibration Error')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -514,8 +527,8 @@ def generate_plotCIR(opt,factors,times):
     plt1 = plt.plot(times, options, label='model')
     plt2 = plt.plot(times, factors, label='market')
     plt.title('CIR: Market Curve Versus Calibrated Curve')
-    plt.xlabel('time')
-    plt.ylabel('discount factor')
+    plt.xlabel('Time')
+    plt.ylabel('Discount Factor')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -525,8 +538,8 @@ def generate_plotCIR(opt,factors,times):
     plt.figure(figsize=(10, 6))
     plt1 = plt.plot(times, diffs, label='differences')
     plt.title('CIR: Market Curve Minus Calibrated Curve')
-    plt.xlabel('time')
-    plt.ylabel('calibration error')
+    plt.xlabel('Time')
+    plt.ylabel('Calibration error')
     plt.grid(True)
     plt.legend(loc=4)
     plt.show(block=False)
@@ -574,15 +587,15 @@ if __name__ == "__main__":
     y_init = 0.00001
     tol = 0.0005
     approx_y = opt_y(err, err_deriv, y_init, tol, 20000)
-    print("Dividend yield: ", round(approx_y,7))
+    print("Dividend yield: ", round(approx_y,7))  #0.0075138
     
 
     #
     # Bates Model Calibration
     #
-    
-    """ i = 0  # counter initialization
-    min_RMSE = 100  # minimal RMSE initialization
+    """ 
+    #i = 0  # counter initialization
+    #min_RMSE = 100  # minimal RMSE initialization
     args = tuple()
     args = (strikes, exptimes, calls, puts, rates, approx_y)
     p0 = sop.brute(BCC_error_function,
@@ -594,16 +607,17 @@ if __name__ == "__main__":
                 (0.10, 0.401, 0.1),   # lambda
                 (-0.5, 0.01, 0.1),   # mu
                 (0.10, 0.301, 0.1)),   # delta
-                args, finish=None)
+                args, finish=None, workers=-1)
 
     opt = sop.fmin(BCC_error_function, p0, args,
                 maxiter=500, maxfun=750,
                 xtol=0.000001, ftol=0.000001)
-    """  
-    opt=[1.12707126e+01,1.00202932e-02,1.97433702e-05,-7.56813636e-01,1.81378313e-02,1.97635655e-01,-3.19773472e-01,2.39109578e-01] #|  16.382 |  16.382
+    
+    #opt = [1.63165024e+01,1.00271476e-02,9.13634714e-02,-4.39431437e-01,2.02147119e-02,2.07076879e-01,-3.15859170e-01,1.95894209e-01]  #| 26.669 
 
     # Split data into chunks to create plots of different maturities
-    chunks = list(np.split(np.arange(25),5))
+    option_list_index = np.arange(0,48)
+    chunks = np.split(option_list_index, [10,20,30,39,45])  # Number of options is: 10,10,10,9,6,8
     for chunk in chunks:
         T = exptimes[chunk[0]]   # Just need one value of T for each group
         K = strikes[chunk]
@@ -612,16 +626,16 @@ if __name__ == "__main__":
         r = rates[chunk[0]]    # Just need one value of r for each group
         label = labels[chunk[0]]    # Just need one label for each group
         generate_plot_BCC(opt, K, C, P, T, r, approx_y, label)
+     """
     
-
     #
     # Bates Model (With Constant Jump) Calibration
     #
     
-    const_jump = 0.02
+    """ const_jump = 0.02
 
-    """ i = 0  # counter initialization
-    min_RMSE = 100  # minimal RMSE initialization
+    #i = 0  # counter initialization
+    #min_RMSE = 100  # minimal RMSE initialization
     args = tuple()
     args = (strikes, exptimes, calls, puts, rates, approx_y, const_jump)
     p0 = sop.brute(BCCJ_error_function,
@@ -633,16 +647,16 @@ if __name__ == "__main__":
                 (0.10, 0.401, 0.1),   # lambda
                 (-0.5, 0.01, 0.1),   # mu
                 (0.10, 0.301, 0.1)),   # delta
-                args, finish=None)
+                args, finish=None, workers=-1)
 
     opt = sop.fmin(BCCJ_error_function, p0, args,
                 maxiter=500, maxfun=750,
                 xtol=0.000001, ftol=0.000001)
-      """
-    opt = [1.81617688e+01,1.00846225e-02,5.97031368e-06,-3.42935226e-01,2.17483723e-02,2.21584422e-01,-2.81054430e-01, 2.43022126e-01]  #|  20.232 |  20.227
-
+      
+    #opt = [1.62359517e+01,1.01619404e-02,9.40962111e-02,-4.27936800e-01,2.02281485e-02,2.11076465e-01,-3.11538818e-01,1.91577720e-01]  #|  26.687 
     # Split data into chunks to create plots of different maturities
-    chunks = list(np.split(np.arange(25),5))
+    option_list_index = np.arange(0,48)
+    chunks = np.split(option_list_index, [10,20,30,39,45])
     for chunk in chunks:
         T = exptimes[chunk[0]]   # Just need one value of T for each group
         K = strikes[chunk]
@@ -651,7 +665,7 @@ if __name__ == "__main__":
         r = rates[chunk[0]]    # Just need one value of r for each group
         label = labels[chunk[0]]    # Just need one label for each group
         generate_plot_BCCJ(opt, K, C,P, T, r, approx_y, const_jump, label)
-       
+      """ 
 
     #
     # Merton Jump Diffusion Calibration
@@ -671,11 +685,12 @@ if __name__ == "__main__":
     opt = sop.fmin(M76_error_function_analytic, p0, args,
                 maxiter=500, maxfun=750,
                 xtol=0.000001, ftol=0.000001)
-     """
-    opt = [ 0.11387867,  0.12602924, -0.44636368,  0.16678075] #|  28.121 |  28.121
-
+     
+    #opt = [0.11183208,0.15467064,-0.38186726,0.15950871] #|  42.802 
+    
     # Split data into chunks to create plots of different maturities
-    chunks = list(np.split(np.arange(25),5))
+    option_list_index = np.arange(0,48)
+    chunks = np.split(option_list_index, [10,20,30,39,45])
     for chunk in chunks:
         T = exptimes[chunk[0]]   # Just need one value of T for each group
         K = strikes[chunk]
@@ -684,7 +699,7 @@ if __name__ == "__main__":
         r = rates[chunk[0]]   # Just need one value of r for each group
         label = labels[chunk[0]]   # Just need one label for each group
         generate_plot_M76(opt, K, C, P, T, r, approx_y, label)
-    
+    """ 
     #
     # Heston Stochastic Volatility Calibration
     #
@@ -706,11 +721,12 @@ if __name__ == "__main__":
     opt = sop.fmin(H93_error_function, p0, args,
             xtol=0.000001, ftol=0.000001,
             maxiter=750, maxfun=900)
-     """ 
-    opt = [ 1.64603105,  0.04335627,  0.37779825, -0.99999935,  0.01871849] #|  17.273 |  17.273
+      
+    opt = [1.46742632,0.04359071,0.35343865,-0.99999992,0.01934985] #|  28.822
 
     # Split data into chunks to create plots of different maturities
-    chunks = list(np.split(np.arange(25),5))
+    option_list_index = np.arange(0,48)
+    chunks = np.split(option_list_index, [10,20,30,39,45])
     for chunk in chunks:
         T = exptimes[chunk[0]]  # Just need one value of T for each group
         K = strikes[chunk]
@@ -719,13 +735,13 @@ if __name__ == "__main__":
         r = rates[chunk[0]]   # Just need one value of r for each group
         label = labels[chunk[0]]   # Just need one label for each group
         generate_plot_H93(opt, K, C, P, T, r, approx_y, label)
-    
+     """ 
     
     #
     # CIR Calibration
     #
 
-    rates_df = pd.read_excel(file_path, sheet_name='termrates')
+    """ rates_df = pd.read_excel(file_path, sheet_name='termrates')
 
     r_list = np.array(rates_df['termrates'])
     t_list = np.array(rates_df['exptimes'])
@@ -744,17 +760,16 @@ if __name__ == "__main__":
     opt = sop.fmin(CIR_error_function, p0, args,
                    maxiter=500, maxfun=750,
                    xtol=0.000001, ftol=0.000001)
-    
-    opt = [0.05426532, 0.18368721, 0.00824399, 0.05503299]  #|   0.000075 |   0.000075
+    #opt = [0.05426532, 0.18368721, 0.00824399, 0.05503299]  #|   0.000075 |   0.000075
     generate_plotCIR(opt, factors, t_list)
-     
+      """
     
 
     #
     # Monte Carlo American Option Calibration
     #
 
-    american_df = pd.read_excel(file_path, sheet_name='american_valuation')
+    """ american_df = pd.read_excel(file_path, sheet_name='american_valuation')
     exptimes = np.array(american_df["exptimes"])
     exptime = exptimes[0]
     strikes = np.array(american_df["strike"])
@@ -765,8 +780,7 @@ if __name__ == "__main__":
     labels = list(american_df["label"]) 
     label = labels[0] 
 
-    opt_BCC = [ 1.81617688e+01, 1.00846225e-02, 5.97031368e-06, -3.42935226e-01,
-                2.17483723e-02,  2.21584422e-01, -2.81054430e-01,  2.43022126e-01]
+    opt_BCC = [1.63165024e+01,1.00271476e-02,9.13634714e-02,-4.39431437e-01,2.02147119e-02,2.07076879e-01,-3.15859170e-01,1.95894209e-01]
     kappa_v, theta_v, sigma_v, rho, v0, lamb, mu, delta  = opt_BCC
     opt_CIR = [0.05426532, 0.18368721, 0.00824399, 0.05503299]
     r0, kappa_r, theta_r, sigma_r = opt_CIR
@@ -818,5 +832,5 @@ if __name__ == "__main__":
         
         # Generate plots for American Option
         generate_plot_MC(strikes, american_option_values, market_prices, label, option=option_type)
-         
+         """
     
