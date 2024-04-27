@@ -9,6 +9,8 @@ a Monte Carlo approach.
 
 ## Models Being Calibrated
 * Bates (Jumps + Stochastic Volatility)
+  * The code also includes a second version of the Bates model    
+    with a constant jump in volatility coinciding with a jump in spot
 * Heston Stochastic Volatility
 * Merton Jump Diffusion
 * CIR Interest Rate Model
@@ -50,7 +52,7 @@ The stars mean “theoretical” value, obtained with the calibrated parameters.
 | Model                      | Error         |
 | -------------------------- | ------------- |
 | Bates                      | 26.669  |
-| Bates (with constant jump  | Content Cell  |
+| Bates (with constant jump  | 26.687  |
 | Heston                     | 42.802  |
 | Merton                     | 28.822  |
 
@@ -72,41 +74,51 @@ $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
 | Parameter                  | Value         |
 | -------------------------- | ------------- |
-| Bates                      | Content Cell  |
-| Bates (with constant jump  | Content Cell  |
-| Heston                     | Content Cell  |
-| Merton                     | Content Cell  |
+| kappa_v                      | Content Cell  |
+| theta_v  | Content Cell  |
+| sigma_v                     | Content Cell  |
+| rho                     | Content Cell  |
+| v0                     | Content Cell  |
+| lambda                     | Content Cell  |
+| mu                      | Content Cell  |
+| delta                     | Content Cell  |
 
 ### Bates Results
 <table>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_3m_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_06-21-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_06-21-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_6m.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_6m_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_09-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_09-20-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_9m.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_9m_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12-20-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12m.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12m_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_03-21-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_03-21-2025_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_15.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_15_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_06-20-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_06-20-2025_diff.png" width="450" height="auto"> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12-19-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/BCC_12-19-2025_diff.png" width="450" height="auto"> 
     </td>
   </tr>
 </table>
@@ -119,37 +131,52 @@ $$\begin{aligned} dv = \kappa(\theta - v) dt + \alpha \sqrt {v} dW_{2} \end{alig
 
 Just like with Bates, we will calculate the least squares error for Heston ($E_{Heston}$).
 
+### Calibrated Parameter
+
+| Parameter                  | Value         |
+| -------------------------- | ------------- |
+| sigma                      | Content Cell  |
+| lambda                     | Content Cell  |
+| mu                         | Content Cell  |
+| delta                      | Content Cell  |
+
 ### Heston Results
 
 <table>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_06-21-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_06-21-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_09-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_09-20-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_12-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_12-20-2024_diff.png" width="450" height="auto">  
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_03-21-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_03-21-2025_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_06-20-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_06-20-2025_diff.png" width="450" height="auto">  
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_12-19-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/H93_12-19-2025_diff.png" width="450" height="auto">  
     </td>
   </tr>
 </table>
@@ -162,37 +189,53 @@ $$\begin{aligned} d_{1,n} = \frac{ln(\frac{S_{0}}{K}) + (r_{n} - y + \frac{1}{2}
 
 $$\begin{aligned} d_{2,n} = d_{1,n} - \sigma_{n} \sqrt{T} \end{aligned}$$
 
+### Calibrated Parameter
+
+| Parameter                  | Value         |
+| -------------------------- | ------------- |
+| kappa_v                      | Content Cell  |
+| theta_v                    | Content Cell  |
+| sigma_v                         | Content Cell  |
+| rho                      | Content Cell  |
+| v0                      | Content Cell  |
+
 ### Merton Results
 
 <table>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_06-21-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_06-21-2024_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_09-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_09-20-2024_diff.png" width="450" height="auto">  
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_12-20-2024.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_12-20-2024_diff.png" width="450" height="auto">  
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_03-21-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_03-21-2025_diff.png" width="450" height="auto"> 
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_06-20-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_06-20-2025_diff.png" width="450" height="auto">  
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_12-19-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/M76_12-19-2025_diff.png" width="450" height="auto">  
     </td>
   </tr>
 </table>
@@ -234,8 +277,8 @@ $$\begin{aligned} dW_{r} \cdot dW_{1} = dW_{r} \cdot dW_{2} = 0 \end{aligned}$$
 <table>
   <tr>
     <td>
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR.png" width="450" height="auto">  
-      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/CIR_diff.png" width="450" height="auto"> 
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/MC_american_put_03-21-2025.png" width="450" height="auto">  
+      <img src="https://github.com/josephobonyo/option_calibration/blob/main/graphs/MC_american_put_03-21-2025_diff.png" width="450" height="auto"> 
     </td>
   </tr>
 </table>
