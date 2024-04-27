@@ -43,7 +43,7 @@ $$\begin{aligned} \frac{\partial E^{2}}{\partial y} = -2 \sum_{i=1}^{N} (S e^{-y
 
 We calculate the least squares error of calibration for each model:
 
-$$\begin{aligned} E_{Bates} = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
+$$\begin{aligned} E = \sqrt{\sum_{i=1}^{N} ((C_{i}^{\*} - C_{i})^{2}+(P_{i}^{\*} - P_{i})^{2})} \end{aligned}$$
 
 The stars mean “theoretical” value, obtained with the calibrated parameters.
 
