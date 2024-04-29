@@ -17,9 +17,9 @@ a Monte Carlo approach.
 * American Option using Monte Carlo
 
 ## Market Data
-We are working with S&P Index options for the following maturities: 6/21/2024,
-9/20/2024, 12/20/2024, 3/21/2025 and 6/20/2025. There are 5 options for each
-maturity. Prices are as of 04/12/2024. We will use the closing price for that day 
+We are working with S&P Index options for the following maturities: 6/21/2024 (10 options),
+9/20/2024 (10 options), 12/20/2024 (10 options), 3/21/2025 (9 options), 6/20/2025 (6 options), 
+and 12/19/2025 (3 options). Prices are as of 04/12/2024. We will use the closing price for that day 
 ($5,123.41) as our index price in the models.
 
 ## 1. Calibrate an overal dividend yield
