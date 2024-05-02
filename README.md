@@ -74,14 +74,14 @@ $$\begin{aligned} dW_{1} \cdot dW_{2} = \rho dt \end{aligned}$$
 
 | Parameter                  | Value         |
 | -------------------------- | ------------- |
-| kappa_v                      | Content Cell  |
-| theta_v  | Content Cell  |
-| sigma_v                     | Content Cell  |
-| rho                     | Content Cell  |
-| v0                     | Content Cell  |
-| lambda                     | Content Cell  |
-| mu                      | Content Cell  |
-| delta                     | Content Cell  |
+| kappa_v                      | 16.24  |
+| theta_v  | 0.01  |
+| sigma_v                     | 0.094  |
+| rho                     | -0.43  |
+| v0                     | 0.02  |
+| lambda                     | 0.211  |
+| mu                      | -0.312  |
+| delta                     | 0.192  |
 
 ### Bates Results
 <table>
@@ -135,10 +135,11 @@ Just like with Bates, we will calculate the least squares error for Heston ($E_{
 
 | Parameter                  | Value         |
 | -------------------------- | ------------- |
-| sigma                      | Content Cell  |
-| lambda                     | Content Cell  |
-| mu                         | Content Cell  |
-| delta                      | Content Cell  |
+| kappa_v                      | 16.32  |
+| theta_v  | 0.01  |
+| sigma_v                     | 0.09  |
+| rho                     | -0.44  |
+| v0                     | 0.02  |
 
 ### Heston Results
 
@@ -193,11 +194,10 @@ $$\begin{aligned} d_{2,n} = d_{1,n} - \sigma_{n} \sqrt{T} \end{aligned}$$
 
 | Parameter                  | Value         |
 | -------------------------- | ------------- |
-| kappa_v                      | Content Cell  |
-| theta_v                    | Content Cell  |
-| sigma_v                         | Content Cell  |
-| rho                      | Content Cell  |
-| v0                      | Content Cell  |
+| sigma                     | 0.112  |
+| lambda                    | 0.155  |
+| mu                         | -0.382  |
+| delta                      | 0.16  |
 
 ### Merton Results
 
