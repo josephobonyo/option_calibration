@@ -14,8 +14,8 @@ from MCExamples import (generate_cholesky, random_number_generator,
 import os
 import multiprocessing
 
-file_path = r"D:\Documents\Python Scripts\FINN6212\spxoptions20240412.xlsx"
-save_folder = r"D:\Documents\Python Scripts\FINN6212\project_graphs"
+file_path = r"spxoptions20240412.xlsx"
+save_folder = r"project_graphs"
 
 
 S0 = 5123.41
